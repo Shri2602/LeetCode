@@ -1,18 +1,17 @@
 class Solution {
 public:
-    int findDuplicate(vector<int>& arr) {
-        int ans;
-        int n = arr.size();
-        map<int,int>mpp;
-        for(int i = 0 ; i< n ; i++){
-            mpp[arr[i]]++;
+    int findDuplicate(vector<int>& nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+        fast = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
         }
-        for(auto it : mpp){
-            if(it.second>1){
-                ans = it.first;
-                break;
-            }
-        }
-        return ans;
+        return slow;
     }
 };
